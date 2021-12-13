@@ -50,6 +50,33 @@ function sortByFeedbacks(arr) {
   });
 }
 
+function sortByPrice(arr) {
+  const temp = JSON.parse(JSON.stringify(arr));
+
+  temp.forEach(element => {
+    if(typeof(element.price) === 'string') {
+      element.price = +element.price.replace(/\D/g, '');
+    } else {
+      element.price = element.price.newUan.replace(/\D/g, '');
+    }
+  });
+
+  temp.sort((a, b) => a.price > b.price ? 1 : -1);
+
+  temp.forEach(item => {
+    document.querySelector('.result').innerHTML += `
+      <h3>${item.name}</h3>
+      <div>Цена: ${item.price}</div>
+      <div>Отзывов: ${item.ratingRevievs}</div>
+    `;
+  });
+}
+
+document.querySelector('.price').addEventListener('click', () => {
+  sortByPrice(items);
+})
+
+
 document.querySelector('.feed').addEventListener('click', () => {
   sortByFeedbacks(items);
 })
