@@ -43,8 +43,16 @@ function sortByFeedbacks(arr) {
   temp.sort((a, b) => a.ratingRevievs > b.ratingRevievs ? 1 : -1);
   
   temp.forEach(item => {
+
+    if(typeof(item.price) === 'string') {
+      item.price = +item.price.replace(/\D/g, '');
+    } else {
+      item.price = item.price.newUan.replace(/\D/g, '');
+    }
+
     document.querySelector('.result').innerHTML += `
       <h3>${item.name}</h3>
+      <div>Цена: ${item.price} грн.</div>
       <div>Отзывов: ${item.ratingRevievs}</div>
     `;
   });
@@ -66,7 +74,7 @@ function sortByPrice(arr) {
   temp.forEach(item => {
     document.querySelector('.result').innerHTML += `
       <h3>${item.name}</h3>
-      <div>Цена: ${item.price}</div>
+      <div>Цена: ${item.price} грн.</div>
       <div>Отзывов: ${item.ratingRevievs}</div>
     `;
   });
